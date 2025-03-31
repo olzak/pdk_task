@@ -1,0 +1,52 @@
+<ClientGUI>:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 10
+
+    # Connection indicator
+    Label:
+        id: connection_status
+        text: root.status_text
+        size_hint_y: None
+        height: '50dp'
+        canvas.before:
+            Color:
+                rgba: (1, 0, 0, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    # Input field and buttons
+    BoxLayout:
+        size_hint_y: None
+        height: '40dp'
+        spacing: 10
+        TextInput:
+            id: message_input
+            multiline: False
+            hint_text: "Enter message"
+            on_text_validate: root.send_button_pressed()
+        Button:
+            text: "SEND"
+            size_hint_x: None
+            width: '80dp'
+            on_release: root.send_button_pressed()
+        Button:
+            text: "TEST"
+            size_hint_x: None
+            width: '80dp'
+            on_release: root.test_button_pressed()
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            Label:
+                id: console
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
